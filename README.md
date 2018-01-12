@@ -12,6 +12,3 @@ This script uses the aws console logs to try identify what kernel version a serv
 `aws-vault exec --assume-role-ttl=60m <role>`
 `bundle`
 `bundle exec ruby main.rb`
-
-
-https://github.com/phcyso/aws_console_kernel_version_check
