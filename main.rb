@@ -20,15 +20,17 @@ def check_manually(instance)
   @manual_instances << {instance: instance, message: "No console text, check manually."}
 end
 
+def getNameTag(instance)
+  name_tag = instance.tags.select{|tag| tag.key == "Name"}.first
+  name_tag == nil ? "" : name_tag.value
+end
+
 def print_good
   puts "\n##### Good Instances ##### "
   puts "ID,\t Name,\t Kernel String "
   @good_instances.each do |ins|
     instance = ins[:instance]
-    name_tag = instance.tags.select{|tag| tag.key == "Name"}.first
-    name_value = name_tag == nil ? "" : name_tag.value
-
-    print "#{instance.instance_id},\t#{name_value},\t#{ins[:kernel_version]}\n"
+    print "#{instance.instance_id},\t#{getNameTag(instance)},\t#{ins[:kernel_version]}\n"
   end
 end
 
@@ -37,10 +39,7 @@ def print_bad
   puts "ID,\t Name,\t Kernel String "
   @bad_instances.each do |ins|
     instance = ins[:instance]
-    name_tag = instance.tags.select{|tag| tag.key == "Name"}.first
-    name_value = name_tag == nil ? "" : name_tag.value
-
-    print "#{instance.instance_id},\t#{name_value},\t#{ins[:full_version_string]}\n"
+    print "#{instance.instance_id},\t#{getNameTag(instance)},\t#{ins[:full_version_string]}\n"
   end
 end
 
@@ -49,9 +48,7 @@ def print_manual
   puts "ID: \t, Name "
   @manual_instances.each do |ins|
     instance = ins[:instance]
-    name_tag = instance.tags.select{|tag| tag.key == "Name"}.first
-    name_value = name_tag == nil ? "" : name_tag.value
-    print "#{instance.instance_id},\t#{name_value},\n"
+    print "#{instance.instance_id},\t#{getNameTag(instance)},\n"
   end
 end
 
