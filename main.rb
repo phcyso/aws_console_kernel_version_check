@@ -5,7 +5,11 @@ require 'pry'
 
 good_versions = [
   'Linux version 4.4.0-1048-aws',
-  'Linux version 3.13.0-139-generic'
+  'Linux version 4.9.75-25.55.amzn1.x86_64',
+  'Linux version 3.13.0-139-generic',
+  'Linux version 3.10.0-693.11.6.el7.x86_64',
+  'Linux version 4.4.0-108-generic',
+  'Linux version 4.4.0.109-generic'
 ]
 
 @good_instances = []
@@ -17,32 +21,37 @@ def check_manually(instance)
 end
 
 def print_good
-    puts "##### Good Instances ##### "
+  puts "\n##### Good Instances ##### "
+  puts "ID,\t Name,\t Kernel String "
   @good_instances.each do |ins|
     instance = ins[:instance]
     name_tag = instance.tags.select{|tag| tag.key == "Name"}.first
     name_value = name_tag == nil ? "" : name_tag.value
-    print "id: #{instance.instance_id},\t Name: #{name_value},\t\t\t\t\t Kernel version: #{ins[:kernel_version]}\n"
+
+    print "#{instance.instance_id},\t#{name_value},\t#{ins[:kernel_version]}\n"
   end
 end
 
 def print_bad
-  puts "##### Bad Instances ##### "
+  puts "\n##### Bad Instances ##### "
+  puts "ID,\t Name,\t Kernel String "
   @bad_instances.each do |ins|
     instance = ins[:instance]
     name_tag = instance.tags.select{|tag| tag.key == "Name"}.first
     name_value = name_tag == nil ? "" : name_tag.value
-    print "id: #{instance.instance_id},\t Name: #{name_value},\nRaw version string: #{ins[:full_version_string]}\n\n"
+
+    print "#{instance.instance_id},\t#{name_value},\t#{ins[:full_version_string]}\n"
   end
 end
 
 def print_manual
-  puts "##### Check these instances manually ##### "
+  puts "\n##### Check these instances manually ##### "
+  puts "ID: \t, Name "
   @manual_instances.each do |ins|
     instance = ins[:instance]
     name_tag = instance.tags.select{|tag| tag.key == "Name"}.first
     name_value = name_tag == nil ? "" : name_tag.value
-    print "id: #{instance.instance_id}, Name: #{name_value}\n"
+    print "#{instance.instance_id},\t#{name_value},\n"
   end
 end
 
