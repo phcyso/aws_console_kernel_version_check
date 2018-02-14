@@ -6,10 +6,16 @@ require 'pry'
 good_versions = [
   'Linux version 4.4.0-1048-aws',
   'Linux version 4.9.75-25.55.amzn1.x86_64',
+  'Linux version 4.9.76-3.78.amzn1.x86_64',
+  'Linux version 4.9.77-31.58.amzn1.x86_64',
   'Linux version 3.13.0-139-generic',
   'Linux version 3.10.0-693.11.6.el7.x86_64',
   'Linux version 4.4.0-108-generic',
-  'Linux version 4.4.0.109-generic'
+  'Linux version 4.4.0.109-generic',
+  'Linux version 4.4.0-1049-aws',
+  'Linux version 3.13.0-141-generic',
+  'Linux version 4.4.0-1050-aws',
+  'Linux version 4.4.0-1047-aws'
 ]
 
 @good_instances = []
@@ -83,6 +89,6 @@ ec2.instances.each do |instance|
   end
 end
 
-print_good
+ENV['ONLY_SHOW_BAD'] == 'true' ? "" : print_good
 print_bad
 print_manual
